@@ -9,7 +9,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Sala {
+	private String nome;
 	private ArrayList<Aluno> listaDeAlunos;
+	
+    public Sala(String nome) {
+        this.nome = nome;
+        this.listaDeAlunos = new ArrayList<>();
+    }
+
+    public String getNome() {
+        return nome;
+    }
 
 	public Sala() {
 		this.listaDeAlunos = new ArrayList<>();

@@ -10,12 +10,8 @@ public class Aluno {
 	private float totalNota, mediaNota = 0;
 	private float[][] notas = new float[4][2]; // 4 bimestres, 2 notas cada
 	private int qtnota;
-	//Aluno alunoAtual = new Aluno();
 	
-	/*
-	public Aluno() {
-	}
-*/
+
     public Aluno() {
         this.notas = new float[4][2];
         this.situacao = "Reprovado";

@@ -7,10 +7,9 @@ public class Main {
 	public static void main(String[] args) {
 		int option;
 		String nome, cpf;
-		float nota;
-		Aluno novoAluno;
 		Sala novaSala = new Sala();
 		Scanner teclado = new Scanner(System.in);
+		Escola escola = new Escola();
 
 		do {
 			System.out.println("\n-----------------------");
@@ -33,11 +32,12 @@ public class Main {
 			teclado.nextLine(); // limpar buffer
 
 			switch (option) {
-			// case 1:
+
 			case 1:
-				System.out.print("\nInforme o nome: ");
+				System.out.print("\nInforme o nome do aluno: ");
 				nome = teclado.nextLine();
 
+				// Validação do CPF
 				do {
 					System.out.print("Informe o CPF (11 dígitos): ");
 					cpf = teclado.nextLine();
@@ -47,8 +47,21 @@ public class Main {
 					}
 				} while (!Aluno.validarCPF(cpf));
 
-				novoAluno = new Aluno(nome, cpf);
+				// 🔷 Escolher ou criar sala
+				System.out.print("Informe o nome da sala: ");
+				String nomeSala = teclado.nextLine();
 
+				Sala sala = escola.buscarSala(nomeSala); // busca dentro da escola
+				if (sala == null) {
+					sala = new Sala(nomeSala);
+					escola.adicionarSala(sala);
+					System.out.println("📁 Sala criada com sucesso!");
+				}
+
+				// Criar aluno
+				Aluno novoAluno = new Aluno(nome, cpf);
+
+				// 🔢 Inserção de notas por bimestre
 				boolean continuar = true;
 				while (continuar) {
 					int bimestre;
@@ -68,10 +81,9 @@ public class Main {
 						}
 					} while (bimestre < 1 || bimestre > 4);
 
-					// Corrige índice (0 a 3)
 					int b = bimestre - 1;
 
-					// Preenche 2 notas
+					// Notas do bimestre
 					for (int n = 0; n < 2; n++) {
 						float notas;
 						do {
@@ -90,110 +102,166 @@ public class Main {
 						novoAluno.inserirNota(b, n, notas);
 					}
 
-					// Pergunta se deseja preencher outro bimestre
 					System.out.print("Deseja preencher outro bimestre? (s/n): ");
 					String resposta = teclado.next().trim().toLowerCase();
 					continuar = resposta.equals("s");
 					teclado.nextLine(); // limpar buffer
 				}
 
-				novoAluno.calcularNotaAluno(); // calcula a situação com as notas inseridas
-				novaSala.insereAluno(novoAluno);
-				System.out.println("✅ Aluno cadastrado com sucesso!");
+				novoAluno.calcularNotaAluno();
+				sala.insereAluno(novoAluno);
+
+				System.out.println("✅ Aluno cadastrado com sucesso na sala \"" + nomeSala + "\"!");
 				break;
 
-			// case 1:
 			case 2:
-				novaSala.listarAlunos();
+				System.out.print("Informe o nome da sala: ");
+				String nomeSalaListada = teclado.nextLine();
+
+				Sala salaSelecionada = escola.buscarSala(nomeSalaListada);
+				if (salaSelecionada != null) {
+					salaSelecionada.listarSituacoes();
+				} else {
+					System.out.println("❌ Sala não encontrada.");
+				}
+
 				break;
 
 			case 3:
-				novaSala.listarSituacoes();
+				System.out.print("Informe o nome da sala: ");
+				String nomeSalaSituacao = teclado.nextLine();
+				Sala salaSituacao = escola.buscarSala(nomeSalaSituacao);
+				if (salaSituacao != null) {
+					salaSituacao.listarSituacoes();
+				} else {
+					System.out.println("Sala não encontrada.");
+				}
 				break;
 
 			case 4:
-				System.out.print("Digite o CPF do aluno que deseja remover: ");
-				String cpfParaRemover = teclado.nextLine();
+				System.out.print("Informe o nome da sala do aluno: ");
+				String nomeSalaRemover = teclado.nextLine();
 
-				boolean removido = novaSala.removerAluno(cpfParaRemover);
-
-				if (removido) {
-					System.out.println("Aluno removido com sucesso.");
+				Sala salaRemover = escola.buscarSala(nomeSalaRemover);
+				if (salaRemover == null) {
+					System.out.println("❌ Sala não encontrada.");
 				} else {
-					System.out.println("Aluno com CPF " + cpfParaRemover + " não encontrado.");
+					System.out.print("Digite o CPF do aluno que deseja remover: ");
+					String cpfParaRemover = teclado.nextLine();
+
+					boolean removido = salaRemover.removerAluno(cpfParaRemover);
+
+					if (removido) {
+						System.out.println("✅ Aluno removido com sucesso.");
+					} else {
+						System.out.println("❌ Aluno com CPF " + cpfParaRemover + " não encontrado.");
+					}
 				}
 				break;
 
 			case 5:
-				System.out.print("Digite o CPF do aluno que deseja encontrar: ");
-				String cpfBuscado = teclado.nextLine().trim();
+				System.out.print("Informe o nome da sala do aluno: ");
+				String nomeSalaBusca = teclado.nextLine();
 
-				Aluno alunoEncontrado = novaSala.encontrarAluno(cpfBuscado);
-
-				if (alunoEncontrado == null) {
-					System.out.println("Aluno com CPF " + cpfBuscado + " não encontrado.");
+				Sala salaBusca = escola.buscarSala(nomeSalaBusca);
+				if (salaBusca == null) {
+					System.out.println("❌ Sala não encontrada.");
 				} else {
-					alunoEncontrado.listar();
+					System.out.print("Digite o CPF do aluno que deseja encontrar: ");
+					String cpfBuscado = teclado.nextLine().trim();
+
+					Aluno alunoEncontrado = salaBusca.encontrarAluno(cpfBuscado);
+
+					if (alunoEncontrado == null) {
+						System.out.println("❌ Aluno com CPF " + cpfBuscado + " não encontrado.");
+					} else {
+						alunoEncontrado.listar();
+					}
 				}
 				break;
 
 			case 6:
-				System.out.print("Digite o CPF do aluno que deseja atualizar: ");
-				String cpfAtualiza = teclado.nextLine().trim();
+				System.out.print("Informe o nome da sala do aluno: ");
+				String nomeSalaAtualiza = teclado.nextLine();
 
-				Aluno alunoEncontrad = novaSala.encontrarAluno(cpfAtualiza);
-
-				if (alunoEncontrad == null) {
-					System.out.println("Aluno não encontrado.");
+				Sala salaAtualiza = escola.buscarSala(nomeSalaAtualiza);
+				if (salaAtualiza == null) {
+					System.out.println("❌ Sala não encontrada.");
 				} else {
-					System.out.print("Digite o número do bimestre que deseja atualizar (1 a 4): ");
-					int batual;
+					System.out.print("Digite o CPF do aluno que deseja atualizar: ");
+					String cpfAtualiza = teclado.nextLine().trim();
 
-					do {
-						while (!teclado.hasNextInt()) {
-							System.out.print("Valor inválido! Digite um número de 1 a 4: ");
-							teclado.next();
-						}
-						batual = teclado.nextInt();
-						if (batual < 1 || batual > 4) {
-							System.out.println("Bimestre inválido! Tente novamente.");
-						}
-					} while (batual < 1 || batual > 4);
+					Aluno alunoAtualizar = salaAtualiza.encontrarAluno(cpfAtualiza);
 
-					batual -= 1; // índice para array
+					if (alunoAtualizar == null) {
+						System.out.println("❌ Aluno não encontrado.");
+					} else {
+						System.out.print("Digite o número do bimestre que deseja atualizar (1 a 4): ");
+						int batual;
 
-					for (int n = 0; n < 2; n++) {
-						float notaAtualizada;
 						do {
-							System.out.print("  Nova nota " + (n + 1) + ": ");
-							while (!teclado.hasNextFloat()) {
-								System.out.print("  Valor inválido! Digite uma nota numérica: ");
+							while (!teclado.hasNextInt()) {
+								System.out.print("Valor inválido! Digite um número de 1 a 4: ");
 								teclado.next();
 							}
-							notaAtualizada = teclado.nextFloat();
-
-							if (notaAtualizada < 0 || notaAtualizada > 10) {
-								System.out.println("  A nota deve estar entre 0 e 10.");
+							batual = teclado.nextInt();
+							teclado.nextLine(); // limpa quebra de linha
+							if (batual < 1 || batual > 4) {
+								System.out.println("Bimestre inválido! Tente novamente.");
 							}
-						} while (notaAtualizada < 0 || notaAtualizada > 10);
+						} while (batual < 1 || batual > 4);
 
-						alunoEncontrad.inserirNota(batual, n, notaAtualizada);
+						batual -= 1; // índice começa do zero
+
+						for (int n = 0; n < 2; n++) {
+							float notaAtualizada;
+							do {
+								System.out.print("  Nova nota " + (n + 1) + ": ");
+								while (!teclado.hasNextFloat()) {
+									System.out.print("  Valor inválido! Digite uma nota numérica: ");
+									teclado.next();
+								}
+								notaAtualizada = teclado.nextFloat();
+								teclado.nextLine(); // limpar buffer
+
+								if (notaAtualizada < 0 || notaAtualizada > 10) {
+									System.out.println("  A nota deve estar entre 0 e 10.");
+								}
+							} while (notaAtualizada < 0 || notaAtualizada > 10);
+
+							alunoAtualizar.inserirNota(batual, n, notaAtualizada);
+						}
+
+						alunoAtualizar.calcularNotaAluno();
+						System.out.println("✅ Notas atualizadas com sucesso!");
 					}
-
-					alunoEncontrad.calcularNotaAluno(); // Atualiza a situação
-					System.out.println("Notas atualizadas com sucesso!");
 				}
-
 				break;
 
 			case 7:
-				System.out.println("7 - Exportar alunos para arquivo");
-				novaSala.exportarParaArquivo();
+				System.out.print("Informe o nome da sala que deseja exportar: ");
+				String nomeSalaExportar = teclado.nextLine();
+
+				Sala salaExportar = escola.buscarSala(nomeSalaExportar);
+				if (salaExportar != null) {
+					salaExportar.exportarParaArquivo();
+				} else {
+					System.out.println("❌ Sala não encontrada.");
+				}
 				break;
 
 			case 8:
-				System.out.println("8 - Importar notas de um arquivo");
-				novaSala.importarDeArquivo();
+				System.out.print("Informe o nome da sala para importar os alunos: ");
+				String nomeSalaImportar = teclado.nextLine();
+
+				Sala salaImportar = escola.buscarSala(nomeSalaImportar);
+				if (salaImportar == null) {
+					salaImportar = new Sala(nomeSalaImportar);
+					escola.adicionarSala(salaImportar);
+					System.out.println("📁 Sala criada com sucesso.");
+				}
+
+				salaImportar.importarDeArquivo(); // importa alunos para esta sala
 				break;
 
 			case 0:
