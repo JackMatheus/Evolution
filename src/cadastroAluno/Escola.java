@@ -49,6 +49,11 @@ public class Escola {
         }
         return null;
     }
+    
+    //Validar nome da sala
+    public static boolean validarNomeSala(String nome) {
+        return nome.matches("\\d{1,2}[A-Za-z]");
+    }
 
     // Lista todas as salas da escola
     public void listarSalas() {

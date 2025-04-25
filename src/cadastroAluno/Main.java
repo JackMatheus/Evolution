@@ -48,8 +48,19 @@ public class Main {
 				} while (!Aluno.validarCPF(cpf));
 
 				// 🔷 Escolher ou criar sala
-				System.out.print("Informe o nome da sala: ");
-				String nomeSala = teclado.nextLine();
+				//System.out.print("Informe o nome da sala: ");
+				//String nomeSala = teclado.nextLine();
+				
+				String nomeSala;
+				do {
+					System.out.println("Informe o nome da sala (ex: 10A): ");
+					nomeSala = teclado.nextLine();
+					
+					if(!Escola.validarNomeSala(nomeSala)) {
+						 System.out.println("⚠️ Nome inválido! Use o formato: número + letra (ex: 9A, 10B).");
+					}
+					
+				}while(!Escola.validarNomeSala(nomeSala));
 
 				Sala sala = escola.buscarSala(nomeSala); // busca dentro da escola
 				if (sala == null) {
