@@ -128,7 +128,7 @@ public class Main {
 			case 2:
 				System.out.print("Informe o nome da sala: ");
 				String nomeSalaListada = teclado.nextLine();
-
+				//
 				Sala salaSelecionada = escola.buscarSala(nomeSalaListada);
 				if (salaSelecionada != null) {
 					salaSelecionada.listarSituacoes();
@@ -141,6 +141,7 @@ public class Main {
 			case 3:
 				System.out.print("Informe o nome da sala: ");
 				String nomeSalaSituacao = teclado.nextLine();
+				//
 				Sala salaSituacao = escola.buscarSala(nomeSalaSituacao);
 				if (salaSituacao != null) {
 					salaSituacao.listarSituacoes();

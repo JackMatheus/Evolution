@@ -79,7 +79,7 @@ public class Aluno {
 			}
 		}
 	}
-
+	//Aqui
 	public void calcularNotaAluno() {
 		float soma = 0;
 		int total = 0;
@@ -124,6 +124,9 @@ public class Aluno {
 		System.out.println("Total das Notas: " + soma);
 		System.out.println("Média Final: " + media);
 		System.out.println("Situação: " + this.situacao);
+		
+		//Alterei aqui
+		mensagemDeMotivacao();
 	}
 
 	public static boolean validarCPF(String cpf) {
@@ -178,6 +181,15 @@ public class Aluno {
 			}
 		}
 		return soma / total;
+	}
+	
+	public void mensagemDeMotivacao() {
+		if("Aprovado".equalsIgnoreCase(this.situacao)){
+			System.out.println("🎉 Parabéns! Você foi aprovado! Continue assim e vá além!");
+			
+		}else {
+			System.out.println("🙁 Faltou pouco! Infelizmente não foi desta vez, mas tenho certeza que você pode chegar no próximo nível!\"");
+		}
 	}
 
 }

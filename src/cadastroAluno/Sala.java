@@ -11,15 +11,15 @@ import java.io.FileReader;
 public class Sala {
 	private String nome;
 	private ArrayList<Aluno> listaDeAlunos;
-	
-    public Sala(String nome) {
-        this.nome = nome;
-        this.listaDeAlunos = new ArrayList<>();
-    }
 
-    public String getNome() {
-        return nome;
-    }
+	public Sala(String nome) {
+		this.nome = nome;
+		this.listaDeAlunos = new ArrayList<>();
+	}
+
+	public String getNome() {
+		return nome;
+	}
 
 	public Sala() {
 		this.listaDeAlunos = new ArrayList<>();
@@ -141,7 +141,7 @@ public class Sala {
 			String linha;
 			Aluno alunoAtual = null;
 			int bimestre = 0;
-
+			// Aqui
 			while ((linha = reader.readLine()) != null) {
 				if (linha.startsWith("Nome: ")) {
 					if (alunoAtual != null) {
