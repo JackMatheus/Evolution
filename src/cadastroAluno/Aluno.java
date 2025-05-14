@@ -79,7 +79,7 @@ public class Aluno {
 			}
 		}
 	}
-	//Aqui
+	
 	public void calcularNotaAluno() {
 		float soma = 0;
 		int total = 0;
@@ -125,10 +125,11 @@ public class Aluno {
 		System.out.println("Média Final: " + media);
 		System.out.println("Situação: " + this.situacao);
 		
-		//Alterei aqui
 		mensagemDeMotivacao();
 	}
-
+	//Cpf não repetir
+	//Cpf não repetir
+	//Tenho que fazer um for na lsita de cpf , para saber se ele existes, se existe cpf ja esxistente .
 	public static boolean validarCPF(String cpf) {
 		if (cpf == null || !cpf.matches("\\d{11}"))
 			return false;
@@ -158,6 +159,8 @@ public class Aluno {
 			return false;
 		}
 	}
+	
+	
 
 	public void listar() {
 		System.out.println("\nNome do Aluno: " + this.nome);
@@ -191,5 +194,6 @@ public class Aluno {
 			System.out.println("🙁 Faltou pouco! Infelizmente não foi desta vez, mas tenho certeza que você pode chegar no próximo nível!\"");
 		}
 	}
+	
 
 }

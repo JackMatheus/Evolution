@@ -10,11 +10,21 @@ import java.io.FileReader;
 
 public class Sala {
 	private String nome;
+	private int ano;
 	private ArrayList<Aluno> listaDeAlunos;
 
-	public Sala(String nome) {
+	public Sala(String nome, int ano) {
 		this.nome = nome;
+		this.ano = ano;
 		this.listaDeAlunos = new ArrayList<>();
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
 	public String getNome() {
@@ -198,6 +208,23 @@ public class Sala {
 			System.out.println("❌ Erro ao ler o arquivo: " + e.getMessage());
 		} catch (Exception ex) {
 			System.out.println("❌ Erro inesperado: " + ex.getMessage());
+		}
+	}
+
+	public void listarAlunosAprovados() {
+		System.out.println("\n=== Alunos Aprovados ===");
+
+		boolean encontrouAprovado = false;
+
+		for (Aluno aluno : listaDeAlunos) {
+			if ("Aprovado".equalsIgnoreCase(aluno.getSituacao())) {
+				aluno.listar();
+				encontrouAprovado = true;
+			}
+
+		}
+		if (!encontrouAprovado) {
+			System.out.println("Nenhum aluno aprovado encontrado.");
 		}
 	}
 
