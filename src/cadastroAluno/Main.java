@@ -1,5 +1,6 @@
 package cadastroAluno;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -24,7 +25,8 @@ public class Main {
 			System.out.println("7-  Imprimir documento");
 			System.out.println("8-  Importar notas de um documento");
 			System.out.println("9 - Listar Alunos Aprovados");
-			System.out.println("10 - Listar alunos de uma sala por ano");
+			System.out.println("10 -Listar alunos de uma sala por ano");
+			System.out.println("11 -Gerar Boletim");
 
 			while (!teclado.hasNextInt()) {
 				System.out.print("Digite um número válido: ");
@@ -38,19 +40,19 @@ public class Main {
 			case 1:
 				System.out.print("\nInforme o nome do aluno: ");
 				nome = teclado.nextLine();
-				
+
 				System.out.print("Informe o ano da sala (ex: 2024): ");
 				int anoSala = teclado.nextInt();
 				teclado.nextLine();
-				
+
 				// Validação do CPF
 				do {
 					System.out.print("Informe o CPF (11 dígitos): ");
 					cpf = teclado.nextLine();
-					
+
 					if (escola.existeCpf(cpf)) {
-					    System.out.println("❌ Já existe um aluno cadastrado com esse CPF. Cadastro cancelado!");
-					    break; // volta para o menu
+						System.out.println("❌ Já existe um aluno cadastrado com esse CPF. Cadastro cancelado!");
+						break; // volta para o menu
 					}
 
 					if (!Aluno.validarCPF(cpf)) {
@@ -59,19 +61,19 @@ public class Main {
 				} while (!Aluno.validarCPF(cpf));
 
 				// 🔷 Escolher ou criar sala
-				//System.out.print("Informe o nome da sala: ");
-				//String nomeSala = teclado.nextLine();
-				
+				// System.out.print("Informe o nome da sala: ");
+				// String nomeSala = teclado.nextLine();
+
 				String nomeSala;
 				do {
 					System.out.println("Informe o nome da sala (ex: 10A): ");
 					nomeSala = teclado.nextLine();
-					
-					if(!Escola.validarNomeSala(nomeSala)) {
-						 System.out.println("⚠️ Nome inválido! Use o formato: número + letra (ex: 9A, 10B).");
+
+					if (!Escola.validarNomeSala(nomeSala)) {
+						System.out.println("⚠️ Nome inválido! Use o formato: número + letra (ex: 9A, 10B).");
 					}
-					
-				}while(!Escola.validarNomeSala(nomeSala));
+
+				} while (!Escola.validarNomeSala(nomeSala));
 
 				Sala sala = escola.buscarSala(nomeSala, anoSala); // busca dentro da escola
 				if (sala == null) {
@@ -143,7 +145,7 @@ public class Main {
 				int anoSalaListada = teclado.nextInt();
 				teclado.nextLine();
 				//
-				Sala salaSelecionada = escola.buscarSala(nomeSalaListada,anoSalaListada);
+				Sala salaSelecionada = escola.buscarSala(nomeSalaListada, anoSalaListada);
 				if (salaSelecionada != null) {
 					salaSelecionada.listarSituacoes();
 				} else {
@@ -156,10 +158,10 @@ public class Main {
 				System.out.print("Informe o nome da sala: ");
 				String nomeSalaSituacao = teclado.nextLine();
 				System.out.print("Informe o ano da sala: ");
-				int anoSalaSituacao= teclado.nextInt();
+				int anoSalaSituacao = teclado.nextInt();
 				teclado.nextLine();
 				//
-				Sala salaSituacao = escola.buscarSala(nomeSalaSituacao,anoSalaSituacao);
+				Sala salaSituacao = escola.buscarSala(nomeSalaSituacao, anoSalaSituacao);
 				if (salaSituacao != null) {
 					salaSituacao.listarSituacoes();
 				} else {
@@ -171,10 +173,10 @@ public class Main {
 				System.out.print("Informe o nome da sala do aluno: ");
 				String nomeSalaRemover = teclado.nextLine();
 				System.out.print("Informe o ano da sala: ");
-				int anoSalaRemover= teclado.nextInt();
+				int anoSalaRemover = teclado.nextInt();
 				teclado.nextLine();
 
-				Sala salaRemover = escola.buscarSala(nomeSalaRemover,anoSalaRemover);
+				Sala salaRemover = escola.buscarSala(nomeSalaRemover, anoSalaRemover);
 				if (salaRemover == null) {
 					System.out.println("❌ Sala não encontrada.");
 				} else {
@@ -195,10 +197,10 @@ public class Main {
 				System.out.print("Informe o nome da sala do aluno: ");
 				String nomeSalaBusca = teclado.nextLine();
 				System.out.print("Informe o ano da sala: ");
-				int anoSalaBusca= teclado.nextInt();
+				int anoSalaBusca = teclado.nextInt();
 				teclado.nextLine();
 
-				Sala salaBusca = escola.buscarSala(nomeSalaBusca,anoSalaBusca);
+				Sala salaBusca = escola.buscarSala(nomeSalaBusca, anoSalaBusca);
 				if (salaBusca == null) {
 					System.out.println("❌ Sala não encontrada.");
 				} else {
@@ -219,7 +221,7 @@ public class Main {
 				System.out.print("Informe o nome da sala do aluno: ");
 				String nomeSalaAtualiza = teclado.nextLine();
 				System.out.print("Informe o ano da sala: ");
-				int anoSalaAtualiza= teclado.nextInt();
+				int anoSalaAtualiza = teclado.nextInt();
 				teclado.nextLine();
 
 				Sala salaAtualiza = escola.buscarSala(nomeSalaAtualiza, anoSalaAtualiza);
@@ -279,11 +281,10 @@ public class Main {
 			case 7:
 				System.out.print("Informe o nome da sala que deseja exportar: ");
 				String nomeSalaExportar = teclado.nextLine();
-				
+
 				System.out.print("Informe o ano da sala: ");
-				int anoSalaExportar= teclado.nextInt();
+				int anoSalaExportar = teclado.nextInt();
 				teclado.nextLine();
-				
 
 				Sala salaExportar = escola.buscarSala(nomeSalaExportar, anoSalaExportar);
 				if (salaExportar != null) {
@@ -296,9 +297,9 @@ public class Main {
 			case 8:
 				System.out.print("Informe o nome da sala para importar os alunos: ");
 				String nomeSalaImportar = teclado.nextLine();
-				
+
 				System.out.print("Informe o ano da sala: ");
-				int anoSalaImportar= teclado.nextInt();
+				int anoSalaImportar = teclado.nextInt();
 				teclado.nextLine();
 
 				Sala salaImportar = escola.buscarSala(nomeSalaImportar, anoSalaImportar);
@@ -310,38 +311,72 @@ public class Main {
 
 				salaImportar.importarDeArquivo(); // importa alunos para esta sala
 				break;
-				
+
 			case 9:
-				 System.out.print("Informe o nome da sala: ");
-				 String nomeSalaAprovados = teclado.nextLine();
-				 
-					System.out.print("Informe o ano da sala: ");
-					int anoSalaAprovados= teclado.nextInt();
-					teclado.nextLine();
-					
-				 Sala salaAprovados = escola.buscarSala(nomeSalaAprovados, anoSalaAprovados);
-				 
-				 if (salaAprovados != null) {
-				        salaAprovados.listarAlunosAprovados();
-				    } else {
-				        System.out.println("Sala não encontrada.");
-				    }
-				    break;
-				    
+				System.out.print("Informe o nome da sala: ");
+				String nomeSalaAprovados = teclado.nextLine();
+
+				System.out.print("Informe o ano da sala: ");
+				int anoSalaAprovados = teclado.nextInt();
+				teclado.nextLine();
+
+				Sala salaAprovados = escola.buscarSala(nomeSalaAprovados, anoSalaAprovados);
+
+				if (salaAprovados != null) {
+					salaAprovados.listarAlunosAprovados();
+				} else {
+					System.out.println("Sala não encontrada.");
+				}
+				break;
+
+			case 10:
+				System.out.print("Informe o nome da sala: ");
+				String salaConsulta = teclado.nextLine();
+
+				System.out.print("Informe o ano da sala: ");
+				int anoConsulta = teclado.nextInt();
+				teclado.nextLine();
+
+				Sala salaFiltrada = escola.buscarSala(salaConsulta, anoConsulta);
+				if (salaFiltrada != null) {
+					salaFiltrada.listarAlunos();
+				} else {
+					System.out.println("❌ Sala com esse nome e ano não encontrada.");
+				}
+
 			case 11:
-			    System.out.print("Informe o nome da sala: ");
-			    String salaConsulta = teclado.nextLine();
+				System.out.println("\n📄 Geração de Boletim");
 
-			    System.out.print("Informe o ano da sala: ");
-			    int anoConsulta = teclado.nextInt();
-			    teclado.nextLine();
+				System.out.println("\nInforme o nome da sala: ");
+				String nomeSalaBoletim = teclado.nextLine().trim();
 
-			    Sala salaFiltrada = escola.buscarSala(salaConsulta, anoConsulta);
-			    if(salaFiltrada!=null) {
-			    	salaFiltrada.listarAlunos();
-			    }else {
-			    	System.out.println("❌ Sala com esse nome e ano não encontrada.");
-			    }
+				System.out.print("Informe o ano da sala: ");
+				int anoSalaBoletim = teclado.nextInt();
+				teclado.nextLine();
+
+				Sala salaBoletim = escola.buscarSala(nomeSalaBoletim, anoSalaBoletim);
+
+				if (salaBoletim != null) {
+					System.out.print("Deseja gerar o boletim? (S/N): ");
+					String resposta = teclado.nextLine().trim().toUpperCase();
+
+					if (resposta.equals("S")) {
+						System.out.print("Digite o CPF do aluno: ");
+						String cpfBoletim = teclado.nextLine(); 
+
+						try {
+							salaBoletim.gerarBoletim(cpfBoletim); // ✅ gera o boletim
+						} catch (IOException e) {
+							System.out.println("❌ Erro ao gerar boletim: " + e.getMessage());
+						}
+					} else {
+						System.out.println("⚠️ Operação cancelada.");
+					}
+
+				} else {
+					System.out.println("❌ Sala com esse nome e ano não encontrada.");
+				}
+				break;
 
 			case 0:
 				System.out.println("\nSaindo...");

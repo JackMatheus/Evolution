@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 
 public class Sala {
 	private String nome;
@@ -227,5 +233,105 @@ public class Sala {
 			System.out.println("Nenhum aluno aprovado encontrado.");
 		}
 	}
+	
+	public void gerarBoletim(String cpf) throws IOException {
+	    Aluno aluno = encontrarAluno(cpf);
+	    if (aluno == null) {
+	        System.out.println("❌ Aluno não encontrado.");
+	        return;
+	    }
 
+	    String nomeArquivo = "boletim_" + aluno.getNome().replaceAll(" ", "_") + ".pdf";
+	    String caminho = "C:\\workspace\\evolution\\cadastroAluno\\boletins\\" + nomeArquivo;
+
+	    PDDocument doc = new PDDocument();
+	    PDPage page = new PDPage(PDRectangle.A4);
+	    doc.addPage(page);
+
+	    PDPageContentStream content = new PDPageContentStream(doc, page);
+	    content.setFont(PDType1Font.HELVETICA, 12);
+	    content.beginText();
+	    content.setLeading(16f);
+	    content.newLineAtOffset(50, 750);
+	    content.showText("=== BOLETIM ESCOLAR ===");
+	    content.newLine();
+	    content.newLine();
+	    content.showText("Nome: " + aluno.getNome());
+	    content.newLine();
+	    content.showText("CPF: " + aluno.getCpf());
+	    content.newLine();
+	    content.newLine();
+	    content.showText("Notas por Bimestre:");
+	    content.newLine();
+
+	    float[][] notas = aluno.getNotas();
+	    for (int b = 0; b < 4; b++) {
+	        content.showText("  Bimestre " + (b + 1) + ": " + notas[b][0] + " | " + notas[b][1]);
+	        content.newLine();
+	    }
+
+	    content.newLine();
+	    content.showText("Média Final: " + aluno.calcularMedia());
+	    content.newLine();
+	    content.showText("Situação: " + aluno.getSituacao());
+	    content.newLine();
+
+	    if ("Aprovado".equalsIgnoreCase(aluno.getSituacao())) {
+	        content.showText("Mensagem: Parabéns! Você foi aprovado!");
+	    } else {
+	        content.showText("Mensagem: Faltou pouco! Tente novamente com foco e disciplina.");
+	    }
+
+	    content.endText();
+	    content.close();
+
+	    doc.save(caminho);
+	    doc.close();
+
+	    System.out.println("✅ Boletim em PDF gerado com sucesso: " + caminho);
+	}
+
+	/*//Gerando boletim em txt
+	public void gerarBoletim(String cpf) throws IOException {
+
+		Aluno aluno = encontrarAluno(cpf);
+
+		if (aluno == null) {
+			System.out.println("❌ Aluno não encontrado.");
+			return;
+		}
+
+		String nomeArquivo = "boletim_" + aluno.getNome().replaceAll(" ", "_") + ".txt";
+		String caminho = "C:\\workspace\\evolution\\cadastroAluno\\boletins\\" + nomeArquivo;
+
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminho))) {
+			writer.write("=== BOLETIM ESCOLAR ===\n");
+			writer.write("Nome: " + aluno.getNome() + "\n");
+			writer.write("CPF: " + aluno.getCpf() + "\n\\n");
+
+			writer.write("Notas por Bimestre:\n");
+
+			for (int b = 0; b < 4; b++) {
+				writer.write("  Bimestre " + (b + 1) + ": ");
+				writer.write(aluno.getNotas()[b][0] + " | " + aluno.getNotas()[b][1] + "\n");
+
+			}
+
+			writer.write("\nMédia Final: " + aluno.calcularMedia() + "\n");
+			writer.write("Situação" + aluno.getSituacao() + "\n");
+
+			if ("Aprovado".equalsIgnoreCase(aluno.getSituacao())) {
+				writer.write("Mensagem: Parabéns! Você foi aprovado!\n");
+			} else {
+				writer.write("Mensagem: Faltou pouco! Tente novamente com foco e disciplina.\n");
+			}
+
+			System.out.println("✅ Boletim gerado com sucesso: " + caminho);
+
+		} catch (IOException e) {
+			System.out.println("❌ Erro ao gerar boletim: " + e.getMessage());
+		}
+	}
+	*/
 }
+	
