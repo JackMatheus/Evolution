@@ -41,9 +41,9 @@ public class Escola {
     }
 
     // Busca uma sala pelo nome
-    public Sala buscarSala(String nomeSala) {
+    public Sala buscarSala(String nomeSala, int ano) {
         for (Sala sala : salas) {
-            if (sala.getNome().equalsIgnoreCase(nomeSala)) {
+            if (sala.getNome().equalsIgnoreCase(nomeSala) && sala.getAno() == ano ) {
                 return sala;
             }
         }
@@ -81,5 +81,15 @@ public class Escola {
             System.out.println("\n📁 Sala: " + sala.getNome());
             sala.listarAlunos();
         }
+    }
+    
+    public boolean existeCpf(String cpf) {
+        for (Sala sala : salas) {
+            Aluno aluno = sala.encontrarAluno(cpf);
+            if (aluno != null) {
+                return true; // CPF encontrado
+            }
+        }
+        return false; // CPF não encontrado
     }
 }

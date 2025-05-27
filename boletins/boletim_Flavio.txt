@@ -1,0 +1,12 @@
+=== BOLETIM ESCOLAR ===
+Nome: Flavio
+CPF: 25912995879
+\nNotas por Bimestre:
+  Bimestre 1: 8.0 | 9.0
+  Bimestre 2: 0.0 | 0.0
+  Bimestre 3: 0.0 | 0.0
+  Bimestre 4: 0.0 | 0.0
+
+Média Final: 2.125
+SituaçãoReprovado
+Mensagem: Faltou pouco! Tente novamente com foco e disciplina.
