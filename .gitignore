@@ -1,1 +1,45 @@
-ECHO est† ativado.
+/Evolution/
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Eclipse Project Files
+.project
+.classpath
+.settings/
+bin/
+tmp/
+
+# Eclipse
+/.metadata/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# IntelliJ IDEA (se algu√©m usar)
+.idea/
+*.iml
+
+# Mac OS
+.DS_Store
+
+# Gradle (se usado)
+.gradle/
+build/
+
+# Outros
+hs_err_pid*
+local.properties
