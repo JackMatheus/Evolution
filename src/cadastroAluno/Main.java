@@ -191,7 +191,7 @@ public class Main {
 						System.out.println("❌ Aluno com CPF " + cpfParaRemover + " não encontrado.");
 					}
 				}
-				break;
+				break; 
 
 			case 5:
 				System.out.print("Informe o nome da sala do aluno: ");
