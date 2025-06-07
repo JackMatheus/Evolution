@@ -1,15 +1,11 @@
 package cadastroAluno;
 
-import java.util.ArrayList;
-
 public class Aluno {
 
 	private String nome;
 	private String cpf;
 	private String situacao = "Reprovado";
-	private float totalNota, mediaNota = 0;
 	private float[][] notas = new float[4][2]; // 4 bimestres, 2 notas cada
-	private int qtnota;
 	
 
     public Aluno() {
@@ -18,13 +14,6 @@ public class Aluno {
     }
 	
     
-	public Aluno(String nome, String cpf, int qtnota) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.qtnota = qtnota;
-
-	}
-
 	public Aluno(String nome, String cpf) {
 		this.nome = nome;
 		this.cpf = cpf;

@@ -8,7 +8,6 @@ public class Main {
 	public static void main(String[] args) {
 		int option;
 		String nome, cpf;
-		Sala novaSala = new Sala();
 		Scanner teclado = new Scanner(System.in);
 		Escola escola = new Escola();
 
