@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/workspace/evolution/cadastroAluno/src/cadastroAluno/lib/pdfbox-app-2.0.27.jar"/>
-	<classpathentry kind="lib" path="C:/workspace/evolution/cadastroAluno/src/cadastroAluno/lib/jakarta.mail-2.0.1.jar"/>
+	<classpathentry kind="lib" path="src/cadastroAluno/lib/pdfbox-app-2.0.27.jar"/>
+	<classpathentry kind="lib" path="src/cadastroAluno/lib/jakarta.mail-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

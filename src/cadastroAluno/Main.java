@@ -8,7 +8,6 @@ public class Main {
 	public static void main(String[] args) {
 		int option;
 		String nome, cpf;
-		Sala novaSala = new Sala();
 		Scanner teclado = new Scanner(System.in);
 		Escola escola = new Escola();
 
@@ -191,7 +190,7 @@ public class Main {
 						System.out.println("❌ Aluno com CPF " + cpfParaRemover + " não encontrado.");
 					}
 				}
-				break;
+				break; 
 
 			case 5:
 				System.out.print("Informe o nome da sala do aluno: ");
