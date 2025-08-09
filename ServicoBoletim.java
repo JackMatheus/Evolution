@@ -11,7 +11,7 @@ public class ServicoBoletim {
     // IMPORTANTE: Este caminho deve ser configurável ou verificado cuidadosamente em um ambiente de produção.
     // Pode ser uma propriedade em um arquivo de configuração, uma variável de ambiente, etc.
     // Certifique-se de que a aplicação tenha permissões de leitura neste diretório.
-    private static final String CAMINHO_BASE_BOLETINS = "C:\\evolution\\cadastroAluno\\boletins\\";
+    private static final String CAMINHO_BASE_BOLETINS = "boletins/";
 
 
     public ServicoBoletim(AlunoDAO alunoDAO) {
